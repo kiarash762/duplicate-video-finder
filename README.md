@@ -1,40 +1,32 @@
 # Duplicate Video Finder
 
-A Python script designed to scan directories and identify duplicate video files based on file hashing or video frame analysis.
+A Python utility for detecting and managing duplicate or visually similar video files within a specified directory.
 
 ## Features
 
-- **Recursive Scanning**: Recursively searches folders and subfolders for standard video file extensions (`.mp4`, `.mkv`, `.avi`, `.mov`, `.flv`, `.wmv`).
-- **Duplicate Identification**: Efficiently grouping duplicates by file hash, file size, or frame-by-frame visual similarity.
-- **Detailed Summary**: Lists duplicated files along with their paths, file sizes, and duration for easy inspection.
-- **Safe Review**: Interactive prompts or logs to review duplicates before taking deletion or cleanup actions.
+- **Multi-Stage Hashing Pipeline:**
+  - **Stage 1:** Groups files by exact byte size to ignore unique files instantly.
+  - **Stage 2:** Calculates a **Fast Hash** (MD5 over head, middle, and tail chunks) on size-matched files.
+  - **Stage 3:** Computes a full **SHA256 Hash** for exact duplicate confirmation.
+- **Perceptual Video Hashing (Optional):**
+  - Extracts keyframes using OpenCV and computes image hashes to catch duplicates even if re-encoded, converted, or resized.
+- **Multiprocessing & Multithreading:**
+  - Utilizes `concurrent.futures` to speed up operations across multiple CPU cores.
+- **Safe Handling & Dry-Run Mode:**
+  - Default **Dry-Run Mode** allows reviewing candidates without altering any files.
+  - Integration with `send2trash` moves deleted files safely to the system Recycle Bin/Trash instead of permanently deleting them.
+- **Command-Line Interface:**
+  - Full CLI support with progress bar feedback via `tqdm`.
 
-## Requirements & Installation
+---
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/kiarash762/duplicate-video-finder.git
-   cd duplicate-video-finder
-   ```
+## Installation
 
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Prerequisites
 
-## Usage
+Ensure Python 3.8+ is installed on your system.
 
-Execute the main script by providing the target directory:
+### Install Required Dependencies
 
 ```bash
-python "duplicate video finder.py" --path "/path/to/videos"
-```
-
-### Command Line Arguments
-
-- `--path`: Target folder path containing video files to analyze.
-- `--interactive`: Prompt for interactive file removal/management.
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+pip install tqdm send2trash opencv-python pillow imagehash
