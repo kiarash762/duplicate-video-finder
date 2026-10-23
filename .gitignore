@@ -1,0 +1,30 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Logs and outputs
+*.log
+duplicate_finder.log
+*.json
+*.csv
+*.html
+!tests/*.json
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "duplicate-video-finder"
+version = "2.0.0"
+authors = [
+    { name = "Kiarash", email = "kiarash.garusi@gmail.com" },
+]
+description = "A fast, multi-stage exact and perceptual duplicate video finder"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "tqdm>=4.66.0",
+    "send2trash>=1.8.0",
+    "opencv-python>=4.8.0",
+    "pillow>=10.0.0",
+    "imagehash>=4.3.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+duplicate-video-finder = "duplicate_video_finder.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["duplicate_video_finder*"]
